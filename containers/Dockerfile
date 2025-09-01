@@ -9,3 +9,5 @@ WORKDIR /root/workspace
 RUN pip install --upgrade pip\
     && pip install --upgrade setuptools\
     && pip install -r requirements.txt
+
+RUN pip install psycopg2-binary

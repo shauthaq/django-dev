@@ -1,22 +1,37 @@
 version: '3'
 
 services:
-  # サービス名
+  # Django用のコンテナ
   django:
     build:
-      context: ./containers    # Dockerfileがあるディレクトリまでの相対パス
-      dockerfile: Dockerfile   # Dockerfileのファイル名
-    
-    # 作成するコンテナ名の指定
+      context: ./containers
+      dockerfile: Dockerfile
     container_name: django
-
-    # 使用するポートの設定
     ports:
       - "7000:8000"
-    
-    # 対話的なセッションやコマンドラインの操作を許可する
     tty: true
-
     volumes:
-      # ローカルの作業ディレクトリと仮想環境の作業ディレクトリの対応づけ
-      - ${SRC_PATH}:/root/workspace   
+      - ${SRC_PATH}:/root/workspace
+    depends_on:
+      - postgres-django   # DBより後に起動
+    environment:
+      - DJANGO_DB_HOST=postgres-django
+      - DJANGO_DB_NAME=django
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=kehksjd78ds78e#she
+
+  # Postgres用のコンテナ
+  postgres-django:
+    image: postgres:15  # <-- 推奨バージョンでOK
+    container_name: postgres-django
+    environment:
+      POSTGRES_DB: django
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: kehksjd78ds78e#she
+    ports:
+      - "5430:5432"   # 必要ならローカルアクセス用
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
