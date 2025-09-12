@@ -1,7 +1,21 @@
 version: '3'
 
 services:
-  # Django用のコンテナ
+
+  # Nginx用のコンテナ
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-monolis
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - monolis
+      
+  # Monolis用のコンテナ
   monolis:
     build:
       context: ./containers

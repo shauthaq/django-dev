@@ -11,3 +11,6 @@ RUN pip install --upgrade pip\
     && pip install -r requirements.txt
 
 RUN pip install psycopg2-binary
+
+# Djangoサーバーを自動起動
+CMD ["python", "monolis/manage.py", "runserver", "0.0.0.0:8000"]
