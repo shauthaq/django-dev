@@ -40,6 +40,7 @@ class Asset(models.Model):
         verbose_name = 'リース品'
         verbose_name_plural = 'リース品一覧'
         ordering = ['asset_number']
+        db_table = 'asset'
     
     def __str__(self):
         return f"{self.asset_number} - {self.name}"

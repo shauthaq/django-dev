@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-0+27ubc5enld5*^8yotpbqk&fejl68*%22@5aa=62v_tm3i=-v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -83,10 +83,10 @@ DATABASES = {
     
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django',
+        'NAME': 'monolis',
         'USER': 'postgres',
         'PASSWORD': 'kehksjd78ds78e#she',
-        'HOST': 'postgres-django',
+        'HOST': 'postgres-monolis',
         'PORT': '5432',
     }
 }
@@ -132,3 +132,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# データベーステーブル名のカスタマイズ
+# Djangoの標準テーブルは変更せず、アプリ固有のテーブルのみプレフィックスを付ける
