@@ -29,7 +29,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kehksjd78ds78e#she
     ports:
-      - "5430:5432"   # 必要ならローカルアクセス用
+      - "15433:5432"   # 必要ならローカルアクセス用
     volumes:
       - pgdata:/var/lib/postgresql/data
 
