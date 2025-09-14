@@ -1,31 +1,44 @@
 version: '3'
 
-services:
-  # Django用のコンテナ
-  django:
+services:      
+  # Monolis用のコンテナ
+  monolis:
     build:
       context: ./containers
       dockerfile: Dockerfile
-    container_name: django
+    container_name: monolis
     ports:
       - "7000:8000"
     tty: true
     volumes:
       - ${SRC_PATH}:/root/workspace
     depends_on:
-      - postgres-django   # DBより後に起動
+      - postgres-monolis   # DBより後に起動
     environment:
-      - DJANGO_DB_HOST=postgres-django
-      - DJANGO_DB_NAME=django
+      - DJANGO_DB_HOST=postgres-monolis
+      - DJANGO_DB_NAME=monolis
       - DJANGO_DB_USER=postgres
       - DJANGO_DB_PASSWORD=kehksjd78ds78e#she
 
+  # Nginx用のコンテナ
+  nginx-monolis:
+    image: nginx:alpine
+    container_name: nginx-monolis
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - monolis
+
   # Postgres用のコンテナ
-  postgres-django:
+  postgres-monolis:
     image: postgres:15  # <-- 推奨バージョンでOK
-    container_name: postgres-django
+    container_name: postgres-monolis
     environment:
-      POSTGRES_DB: django
+      POSTGRES_DB: monolis
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kehksjd78ds78e#she
     ports:
