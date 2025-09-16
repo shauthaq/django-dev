@@ -7,8 +7,8 @@ services:
       context: ./containers
       dockerfile: Dockerfile
     container_name: monolis
-    ports:
-      - "7000:8000"
+    #ports:
+    #  - "7000:8000"
     tty: true
     volumes:
       - ${SRC_PATH}:/root/workspace
